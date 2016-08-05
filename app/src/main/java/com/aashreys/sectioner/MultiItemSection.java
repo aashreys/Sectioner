@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * An implementation of {@link Section} designed to containing multiple data {@link Item}s
  * corresponding to a single View Type.
- * <p/>
+ * <p>
  * Created by aashreys on 20/03/16.
  */
 public abstract class MultiItemSection<Item, ViewHolder extends RecyclerView.ViewHolder> extends
@@ -20,11 +20,18 @@ public abstract class MultiItemSection<Item, ViewHolder extends RecyclerView.Vie
 
     @NonNull protected List<Item> itemList;
 
+    /**
+     * Creates an empty {@link MultiItemSection}.
+     */
     public MultiItemSection() {
         super();
         this.itemList = new ArrayList<>();
     }
 
+    /**
+     * Creates a new {@link MultiItemSection} filled with {@link Item}s from the supplied {@link
+     * List<Item>}.
+     */
     public MultiItemSection(@NonNull List<Item> itemList) {
         super();
         this.itemList = itemList;

@@ -101,8 +101,8 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
     public abstract void replace(@NonNull Item item, boolean notifyAdapter);
 
     /**
-     * Similar to {@link #replace(Object, boolean)}, except that the replacement is made at a
-     * specific position.
+     * Similar to {@link #replace(Object, boolean)}, except that the replacement is made at the
+     * specified position.
      *
      * @param position      position to remove item at
      * @param item          {@link Item} to replace the removed item with
