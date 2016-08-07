@@ -18,9 +18,11 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
 
     @Nullable protected SectionManager manager;
 
-    private boolean isEnabled = true;
+    private boolean isEnabled;
 
-    public Section() {}
+    public Section() {
+        this.isEnabled = true;
+    }
 
     protected void setManager(@Nullable SectionManager manager) {
         this.manager = manager;
@@ -43,9 +45,11 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
      * @param sectionPosition the position of {@link ViewHolder} in this section.
      * @param adapterPosition the position of this {@link ViewHolder} in the adapter.
      */
-    protected void bindViewHolder(ViewHolder holder, int sectionPosition, int adapterPosition) {
-        // Override me
-    }
+    protected abstract void bindViewHolder(
+            ViewHolder holder,
+            int sectionPosition,
+            int adapterPosition
+    );
 
     /**
      * Adds data {@link Item}s to the end of this {@link Section} and notifies the adapter.
@@ -91,9 +95,9 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
 
     /**
      * Replaces the first occurrence of an {@link Item} with the new {@link Item} in this {@link
-     * Section} and <i>optionally</i> notifies the adapter. The notification being optional can be
-     * used to either immediately notify the adapter or allow the user to manually reflect the
-     * update at a later time or in response to an event.
+     * Section} and <i>optionally</i> notifies the adapter. The optional notification can be used
+     * to either immediately notify the adapter or allow the user to manually reflect the update
+     * at a later time or in response to an event.
      *
      * @param item          {@link Item} to replace with an updated instance
      * @param notifyAdapter controls whether or not the adapter is notified to the replacement.
@@ -111,17 +115,17 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
     public abstract void replace(int position, @NonNull Item item, boolean notifyAdapter);
 
     /**
-     * Clears this {@link Section} adds the supplied {@link Item}s. The adapter is only notified
-     * once, at the end of the replacement operation and the notification is that of the difference
-     * in the size of the list, not the entire removal and re-addition of items, hence making it a
-     * more efficient notification method.
-     * <p/>
+     * Clears this {@link Section} adds {@link Item}s to the {@link Section}. The adapter is only
+     * notified once, at the end of the replacement operation and the notification is that of the
+     * difference in the size of the list, not the entire removal and re-addition of items, hence
+     * making it a more efficient notification method.
+     * <p>
      * It is recommended to use this method instead of chaining calls to {@link #clear} and
      * then {@link #addAll(Object[])}.
      *
      * @param items {@link Item}s to replace the current {@link Item}s with.
      */
-    public abstract void clearAllAndReplace(Item... items);
+    public abstract void clearAndAdd(Item... items);
 
     /**
      * Checks if an {@link Item} is contained in this {@link Section}.

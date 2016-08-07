@@ -28,11 +28,6 @@ public abstract class SingleItemSection<Item, ViewHolder extends RecyclerView.Vi
         return this.item;
     }
 
-    @Override
-    public void bindViewHolder(ViewHolder holder, int sectionPosition, int adapterPosition) {
-        // Override me
-    }
-
     public void addAll(@NonNull Item... items) {
         throw new UnsupportedOperationException(MULTI_ITEM_OPERATION_ERROR);
     }
@@ -79,7 +74,7 @@ public abstract class SingleItemSection<Item, ViewHolder extends RecyclerView.Vi
     }
 
     @Override
-    public void clearAllAndReplace(Item... items) {
+    public void clearAndAdd(Item... items) {
         if (items.length == 1) {
             this.item = items[0];
         } else {

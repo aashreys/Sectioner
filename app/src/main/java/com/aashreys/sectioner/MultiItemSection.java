@@ -29,17 +29,14 @@ public abstract class MultiItemSection<Item, ViewHolder extends RecyclerView.Vie
     }
 
     /**
-     * Creates a new {@link MultiItemSection} filled with {@link Item}s from the supplied {@link
-     * List<Item>}.
+     * Creates a new {@link MultiItemSection} with added {@link Item}s. This does not trigger an
+     * animated addition in the {@link RecyclerView}.
+     *
+     * @param itemList - {@link Item}s to add.
      */
     public MultiItemSection(@NonNull List<Item> itemList) {
         super();
         this.itemList = itemList;
-    }
-
-    @Override
-    public void bindViewHolder(ViewHolder holder, int sectionPosition, int adapterPosition) {
-        // Override me
     }
 
     @Override
@@ -118,7 +115,7 @@ public abstract class MultiItemSection<Item, ViewHolder extends RecyclerView.Vie
     }
 
     @Override
-    public void clearAllAndReplace(Item... items) {
+    public void clearAndAdd(Item... items) {
         int oldSize, newSize;
         synchronized (writeLock) {
             oldSize = itemList.size();

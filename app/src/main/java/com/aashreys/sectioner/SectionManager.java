@@ -12,7 +12,7 @@ import java.util.TreeMap;
 /**
  * Provides APIs for manipulating entire {@link Section}s added to the {@link RecyclerView} and
  * provides {@link Section} level control over the {@link RecyclerView}'s children.
- * <p/>
+ * <p>
  * Created by aashreys on 20/03/16.
  */
 public class SectionManager {
@@ -50,8 +50,9 @@ public class SectionManager {
     private int itemsSize;
 
     /**
-     * Creates a {@link SectionManager} and binds it to the supplied {@link
-     * SectionedRecyclerViewAdapter}.
+     * Creates a {@link SectionManager} and binds it to a {@link SectionedRecyclerViewAdapter}.
+     *
+     * @param adapter - {@link SectionedRecyclerViewAdapter} to bind to.
      */
     public SectionManager(@NonNull SectionedRecyclerViewAdapter adapter) {
         this.sections = new ArrayList<>();
@@ -77,8 +78,11 @@ public class SectionManager {
     }
 
     /**
-     * Returns a {@link Section} from the specified position in this {@link SectionManager} else
-     * throws an {@link IndexOutOfBoundsException}.
+     * Returns a {@link Section} a position in this {@link SectionManager}.
+     *
+     * @param sectionPosition position of {@link Section} to return
+     * @return {@link Section} at specified position
+     * @throws IndexOutOfBoundsException
      */
     public Section get(int sectionPosition) {
         return sections.get(sectionPosition);
@@ -203,7 +207,7 @@ public class SectionManager {
      * Replaces the first occurrence of a {@link Section} in {@link #sections}, updates the
      * internal mappings and notifies the {@link #adapter}.
      *
-     * @param section
+     * @param section {@link Section} to replace with
      */
     public void replace(Section section) {
         replace(sections.indexOf(section), section);
@@ -244,7 +248,7 @@ public class SectionManager {
                     Math.abs(itemsDiff)
             );
         } else {
-            // Items have changed
+            // Items have changed in place
             adapter.notifyItemRangeChanged(sectionFirstItemPos, newSectionItemCount);
         }
     }
@@ -260,9 +264,8 @@ public class SectionManager {
     }
 
     /**
-     * Clears the internal sections list - {@link #sections}, thereby flushing all held {@link
-     * Section}s and their internal items. Also updates the internal mappings and notifies the
-     * {@link #adapter}.
+     * Clears the sections list - {@link #sections}, thereby flushing all held {@link Section}s and
+     * their items. Also updates the internal mappings and notifies the {@link #adapter}.
      */
     public void clear() {
         synchronized (writeLock) {
