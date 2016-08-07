@@ -10,7 +10,7 @@ import android.view.ViewGroup;
  * A Section represents a collection of data items - {@link Item} - which correspond to a single
  * View Type in the RecyclerView Adapter.
  * This class provides APIs for manipulating individual items in a {@link Section}, useful for
- * granular item level control over a {@link RecyclerView}'s children.
+ * single view level control over a {@link RecyclerView}'s children.
  *
  * @author aashreys on 23/03/16.
  */
