@@ -119,7 +119,7 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
      * notified once, at the end of the replacement operation and the notification is that of the
      * difference in the size of the list, not the entire removal and re-addition of items, hence
      * making it a more efficient notification method.
-     * <p>
+     * <p/>
      * It is recommended to use this method instead of chaining calls to {@link #clear} and
      * then {@link #addAll(Object[])}.
      *
@@ -179,9 +179,9 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
 
     /**
      * Enables/disables this {@link Section}. When enabled this {@link Section} will appear in a
-     * {@link RecyclerView} list. Upon disabling this {@link Section} will disappear from the list
-     * as if it had never been added. This is a convenience method so that developers can hide
-     * {@link Section}s without having to mess around with the internal {@link Item} list.
+     * {@link RecyclerView} list. Upon disabling this {@link Section} will disappear from the list.
+     * This is a convenience method so that developers can hide {@link Section}s without having to
+     * mess around with the internal {@link Item} list.
      */
     public void setEnabled(boolean isEnabled) {
         if (this.isEnabled != isEnabled) {
