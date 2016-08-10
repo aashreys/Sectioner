@@ -4,46 +4,46 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
 /**
- * An implementation of {@link Section} designed to contain a single data {@link Item}. Useful for
+ * An implementation of {@link Section} designed to contain a single data {@link Data}. Useful for
  * creating list headers, footers and separators.
  * <p/>
  * Created by aashreys on 20/03/16.
  */
-public abstract class SingleItemSection<Item, ViewHolder extends RecyclerView.ViewHolder>
-        extends Section<Item, ViewHolder> {
+public abstract class SingleItemSection<Data, ViewHolder extends RecyclerView.ViewHolder>
+        extends Section<Data, ViewHolder> {
 
     private final Object writeLock = new Object();
 
-    @NonNull protected Item item;
+    @NonNull protected Data data;
 
     private static final String MULTI_ITEM_OPERATION_ERROR = "MultiItem operations are unsupported in SingleItemSection";
 
-    public SingleItemSection(Item item) {
+    public SingleItemSection(Data data) {
         super();
-        this.item = item;
+        this.data = data;
     }
 
     @NonNull
-    public Item getItem() {
-        return this.item;
+    public Data getData() {
+        return this.data;
     }
 
-    public void addAll(@NonNull Item... items) {
+    public void addAll(@NonNull Data... datas) {
         throw new UnsupportedOperationException(MULTI_ITEM_OPERATION_ERROR);
     }
     
     @Override
-    public void add(@NonNull Item item) {
+    public void add(@NonNull Data data) {
         throw new UnsupportedOperationException(MULTI_ITEM_OPERATION_ERROR);
     }
 
     @Override
-    public void add(int position, @NonNull Item item) {
+    public void add(int position, @NonNull Data data) {
         throw new UnsupportedOperationException(MULTI_ITEM_OPERATION_ERROR);
     }
 
     @Override
-    public void remove(@NonNull Item item) {
+    public void remove(@NonNull Data data) {
         throw new UnsupportedOperationException(MULTI_ITEM_OPERATION_ERROR);
     }
 
@@ -53,9 +53,9 @@ public abstract class SingleItemSection<Item, ViewHolder extends RecyclerView.Vi
     }
 
     @Override
-    public void replace(@NonNull Item item, boolean notifyAdapter) {
+    public void replace(@NonNull Data data, boolean notifyAdapter) {
         synchronized (writeLock) {
-            this.item = item;
+            this.data = data;
         }
         if (notifyAdapter) {
             _notifyItemReplaced(0);
@@ -63,9 +63,9 @@ public abstract class SingleItemSection<Item, ViewHolder extends RecyclerView.Vi
     }
 
     @Override
-    public void replace(int position, @NonNull Item item, boolean notifyAdapter) {
+    public void replace(int position, @NonNull Data data, boolean notifyAdapter) {
         if (position == 0) {
-            replace(item, notifyAdapter);
+            replace(data, notifyAdapter);
         } else {
             throw new UnsupportedOperationException(
                     "Cannot replace item from position " + position +
@@ -74,17 +74,17 @@ public abstract class SingleItemSection<Item, ViewHolder extends RecyclerView.Vi
     }
 
     @Override
-    public void clearAndAdd(Item... items) {
-        if (items.length == 1) {
-            this.item = items[0];
+    public void clearAndAdd(Data... datas) {
+        if (datas.length == 1) {
+            this.data = datas[0];
         } else {
             throw new UnsupportedOperationException(MULTI_ITEM_OPERATION_ERROR);
         }
     }
 
     @Override
-    public boolean contains(Item item) {
-        return item != null && this.item.equals(item);
+    public boolean contains(Data data) {
+        return data != null && this.data.equals(data);
     }
 
     @Override
@@ -93,8 +93,8 @@ public abstract class SingleItemSection<Item, ViewHolder extends RecyclerView.Vi
     }
 
     @Override
-    public int indexOf(@NonNull Item item) {
-        if (this.item.equals(item)) {
+    public int indexOf(@NonNull Data data) {
+        if (this.data.equals(data)) {
             return 0;
         } else {
             return -1;
@@ -102,8 +102,8 @@ public abstract class SingleItemSection<Item, ViewHolder extends RecyclerView.Vi
     }
 
     @Override
-    public int lastIndexOf(@NonNull Item item) {
-        return indexOf(item);
+    public int lastIndexOf(@NonNull Data data) {
+        return indexOf(data);
     }
 
     @Override
