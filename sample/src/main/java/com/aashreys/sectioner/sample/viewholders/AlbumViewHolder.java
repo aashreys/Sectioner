@@ -29,12 +29,14 @@ public class AlbumViewHolder extends RecyclerView.ViewHolder {
     public void onBind(
             String albumName,
             String artistName,
-            final int adapterPosition,
-            final int sectionPosition
+            final int sectionPosition,
+            final int adapterPosition
     ) {
         albumNameText.setText(albumName);
         artistNameText.setText(artistName);
-        albumImage.setImageDrawable(null);
+        albumImage.setImageDrawable(albumView.getContext()
+                .getResources()
+                .getDrawable(R.drawable.ic_record));
         albumView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
