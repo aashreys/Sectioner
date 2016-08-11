@@ -43,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Create your sections and add data
         HeaderSection headerSection = new HeaderSection();
-        SeparatorSection songsSeparatorSection = new SeparatorSection("Audiotracks");
+        SeparatorSection songsSeparatorSection = new SeparatorSection("Top Audiotracks");
 
         SongsSection songsSection = new SongsSection();
         songsSection.addAll(getResources().getStringArray(R.array.array_songs)); // Adding data
 
-        SeparatorSection albumsSeparatorSection = new SeparatorSection("Records");
+        SeparatorSection albumsSeparatorSection = new SeparatorSection("Top Records");
 
         AlbumsSection albumsSection = new AlbumsSection();
         albumsSection.addAll(getResources().getStringArray(R.array.array_albums)); // Adding data
