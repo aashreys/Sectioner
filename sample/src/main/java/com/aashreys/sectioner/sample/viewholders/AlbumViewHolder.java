@@ -36,7 +36,7 @@ public class AlbumViewHolder extends RecyclerView.ViewHolder {
         artistNameText.setText(artistName);
         albumImage.setImageDrawable(albumView.getContext()
                 .getResources()
-                .getDrawable(R.drawable.ic_record));
+                .getDrawable(R.drawable.ic_album));
         albumView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

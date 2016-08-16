@@ -11,8 +11,7 @@
         android:id="@+id/image_album"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_centerVertical="true"
-        android:src="@android:color/holo_blue_bright" />
+        android:layout_centerVertical="true" />
 
     <LinearLayout
         android:layout_width="wrap_content"
