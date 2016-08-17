@@ -7,14 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * A Section represents a collection of data items - {@link Item} - which correspond to a single
+ * A Section represents a collection of data items - {@link Data} - which correspond to a single
  * View Type in the RecyclerView Adapter.
  * This class provides APIs for manipulating individual items in a {@link Section}, useful for
  * single view level control over a {@link RecyclerView}'s children.
  *
  * @author aashreys on 23/03/16.
  */
-public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> {
+public abstract class Section<Data, ViewHolder extends RecyclerView.ViewHolder> {
 
     @Nullable protected SectionManager manager;
 
@@ -29,7 +29,7 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
     }
 
     /**
-     * Creates and returns a {@link ViewHolder} for binding your {@link View} to an {@link Item}
+     * Creates and returns a {@link ViewHolder} for binding your {@link View} to an {@link Data}
      * from this Section. You can inflate your {@link View} and pass it to the {@link ViewHolder}
      * in this method.
      *
@@ -52,70 +52,70 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
     );
 
     /**
-     * Adds data {@link Item}s to the end of this {@link Section} and notifies the adapter.
+     * Adds data {@link Data}s to the end of this {@link Section} and notifies the adapter.
      *
-     * @param items {@link Item}s to add.
+     * @param datas {@link Data}s to add.
      * @see MultiItemSection#addAll(Object[])
      * @see SingleItemSection#addAll(Object[])
      */
-    public abstract void addAll(@NonNull Item... items);
+    public abstract void addAll(@NonNull Data... datas);
 
     /**
-     * Adds a single {@link Item} to the end of this {@link Section} and notifies the adapter.
+     * Adds a single {@link Data} to the end of this {@link Section} and notifies the adapter.
      *
-     * @param item {@link Item} to add.
+     * @param data {@link Data} to add.
      */
-    public abstract void add(@NonNull Item item);
+    public abstract void add(@NonNull Data data);
 
     /**
-     * Adds a single {@link Item} to a specific position in this {@link Section} and notifies the
+     * Adds a single {@link Data} to a specific position in this {@link Section} and notifies the
      * adapter.
      *
-     * @param position position to add the {@link Item} to.
-     * @param item     {@link Item} to add.
+     * @param position position to add the {@link Data} to.
+     * @param data     {@link Data} to add.
      * @throws IndexOutOfBoundsException if {@param position} is not found or invalid.
      */
-    public abstract void add(int position, @NonNull Item item);
+    public abstract void add(int position, @NonNull Data data);
 
     /**
-     * Removes the first occurrence of a single {@link Item} in this {@link Section} and notifies
+     * Removes the first occurrence of a single {@link Data} in this {@link Section} and notifies
      * the adapter.
      *
-     * @param item {@link Item} to remove
+     * @param data {@link Data} to remove
      */
-    public abstract void remove(@NonNull Item item);
+    public abstract void remove(@NonNull Data data);
 
     /**
-     * Removes the {@link Item} at a specified position.
+     * Removes the {@link Data} at a specified position.
      *
-     * @param position position to remove {@link Item} from
+     * @param position position to remove {@link Data} from
      * @throws IndexOutOfBoundsException if {@param position} is not found or invalid.
      */
     public abstract void remove(int position);
 
     /**
-     * Replaces the first occurrence of an {@link Item} with the new {@link Item} in this {@link
+     * Replaces the first occurrence of an {@link Data} with the new {@link Data} in this {@link
      * Section} and <i>optionally</i> notifies the adapter. The optional notification can be used
      * to either immediately notify the adapter or allow the user to manually reflect the update
      * at a later time or in response to an event.
      *
-     * @param item          {@link Item} to replace with an updated instance
+     * @param data          {@link Data} to replace with an updated instance
      * @param notifyAdapter controls whether or not the adapter is notified to the replacement.
      */
-    public abstract void replace(@NonNull Item item, boolean notifyAdapter);
+    public abstract void replace(@NonNull Data data, boolean notifyAdapter);
 
     /**
      * Similar to {@link #replace(Object, boolean)}, except that the replacement is made at the
      * specified position.
      *
      * @param position      position to remove item at
-     * @param item          {@link Item} to replace the removed item with
+     * @param data          {@link Data} to replace the removed item with
      * @param notifyAdapter controls whether or not the adapter is notified to the replacement.
      */
-    public abstract void replace(int position, @NonNull Item item, boolean notifyAdapter);
+    public abstract void replace(int position, @NonNull Data data, boolean notifyAdapter);
 
     /**
-     * Clears this {@link Section} adds {@link Item}s to the {@link Section}. The adapter is only
+     * Clears this {@link Section} adds {@link Data}s to the {@link Section}. The adapter is only
      * notified once, at the end of the replacement operation and the notification is that of the
      * difference in the size of the list, not the entire removal and re-addition of items, hence
      * making it a more efficient notification method.
@@ -123,38 +123,38 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
      * It is recommended to use this method instead of chaining calls to {@link #clear} and
      * then {@link #addAll(Object[])}.
      *
-     * @param items {@link Item}s to replace the current {@link Item}s with.
+     * @param datas {@link Data}s to replace the current {@link Data}s with.
      */
-    public abstract void clearAndAdd(Item... items);
+    public abstract void clearAndAdd(Data... datas);
 
     /**
-     * Checks if an {@link Item} is contained in this {@link Section}.
+     * Checks if an {@link Data} is contained in this {@link Section}.
      *
-     * @param item {@link Item} to check for
-     * @return True if the {@link Item} is contained, False otherwise.
+     * @param data {@link Data} to check for
+     * @return True if the {@link Data} is contained, False otherwise.
      */
-    public abstract boolean contains(Item item);
+    public abstract boolean contains(Data data);
 
     /**
-     * Removes all {@link Item}s from this {@link Section}.
+     * Removes all {@link Data}s from this {@link Section}.
      */
     public abstract void clear();
 
     /**
-     * Returns the first position of an {@link Item} in this {@link Section}.
+     * Returns the first position of an {@link Data} in this {@link Section}.
      *
-     * @param item {@link Item} to find position for.
+     * @param data {@link Data} to find position for.
      * @return First position of the item if it is found in this Section, -1 otherwise.
      */
-    public abstract int indexOf(@NonNull Item item);
+    public abstract int indexOf(@NonNull Data data);
 
     /**
-     * Returns the last position of an {@link Item} in this {@link Section}.
+     * Returns the last position of an {@link Data} in this {@link Section}.
      *
-     * @param item {@link Item} to find position for.
+     * @param data {@link Data} to find position for.
      * @return Last position of the item if it is found in this section, -1 otherwise.
      */
-    public abstract int lastIndexOf(@NonNull Item item);
+    public abstract int lastIndexOf(@NonNull Data data);
 
     /**
      * Convenience method to check if this {@link Section} is empty.
@@ -164,7 +164,7 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
     }
 
     /**
-     * Returns the number of {@link Item}s present in this {@link Section}.
+     * Returns the number of {@link Data}s present in this {@link Section}.
      */
     public abstract int size();
 
@@ -181,7 +181,7 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
      * Enables/disables this {@link Section}. When enabled this {@link Section} will appear in a
      * {@link RecyclerView} list. Upon disabling this {@link Section} will disappear from the list.
      * This is a convenience method so that developers can hide {@link Section}s without having to
-     * mess around with the internal {@link Item} list.
+     * mess around with the internal {@link Data} list.
      */
     public void setEnabled(boolean isEnabled) {
         if (this.isEnabled != isEnabled) {
@@ -208,7 +208,7 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
 
     /**
      * Helper method to notify the adapter for this {@link Section} of the addition of multiple new
-     * {@link Item}s to this {@link Section}.
+     * {@link Data}s to this {@link Section}.
      *
      * @param oldSize Size of the {@link Section} before the addition
      * @param newSize Size of the {@link Section} after the addition
@@ -224,7 +224,7 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
 
     /**
      * Helper method to notify the adapter for this {@link Section} of the removal of multiple new
-     * {@link Item}s to this {@link Section}.
+     * {@link Data}s to this {@link Section}.
      *
      * @param oldSize Size of the {@link Section} before the removal
      * @param newSize Size of the {@link Section} after the removal
@@ -239,7 +239,7 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
     }
 
     /**
-     * Helper method to notify the adapter for this {@link Section} that a range of {@link Item}s
+     * Helper method to notify the adapter for this {@link Section} that a range of {@link Data}s
      * has been changed.
      */
     protected void _notifyItemRangeChanged(int startPosition, int itemsChanged) {
@@ -252,10 +252,10 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
     }
 
     /**
-     * Helper method to notify the adapter for this {@link Section} that an {@link Item} has been
+     * Helper method to notify the adapter for this {@link Section} that an {@link Data} has been
      * added.
      *
-     * @param itemPosition Position at which the {@link Item} was added.
+     * @param itemPosition Position at which the {@link Data} was added.
      */
     protected void _notifyItemAdded(int itemPosition) {
         if (manager != null) {
@@ -266,10 +266,10 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
     }
 
     /**
-     * Helper method to notify the adapter for this {@link Section} that an {@link Item} has been
+     * Helper method to notify the adapter for this {@link Section} that an {@link Data} has been
      * removed.
      *
-     * @param itemPosition Position from which the {@link Item} was removed.
+     * @param itemPosition Position from which the {@link Data} was removed.
      */
     protected void _notifyItemRemoved(int itemPosition) {
         if (manager != null) {
@@ -280,10 +280,10 @@ public abstract class Section<Item, ViewHolder extends RecyclerView.ViewHolder> 
     }
 
     /**
-     * Helper method to notify the adapter for this {@link Section} that an {@link Item} has been
+     * Helper method to notify the adapter for this {@link Section} that an {@link Data} has been
      * replaced.
      *
-     * @param itemPosition Position at which the {@link Item} was replaced.
+     * @param itemPosition Position at which the {@link Data} was replaced.
      */
     protected void _notifyItemReplaced(int itemPosition) {
         if (manager != null) {

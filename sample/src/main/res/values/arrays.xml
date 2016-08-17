@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="array_songs">
+        <item>Lost For Words</item>
+        <item>Run Like Hell</item>
+        <item>Comfortably Numb</item>
+        <item>Brain Damage</item>
+        <item>Marooned</item>
+    </string-array>
+
+    <string-array name="array_albums">
+        <item>Dark Side Of The Moon</item>
+        <item>Atom Heart Mother</item>
+        <item>Wish You Were Here</item>
+        <item>The Division Bell</item>
+        <item>The Wall</item>
+    </string-array>
+
+</resources>
