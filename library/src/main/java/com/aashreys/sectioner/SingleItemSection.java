@@ -28,12 +28,7 @@ public abstract class SingleItemSection<Data, ViewHolder extends RecyclerView.Vi
         return this.data;
     }
 
-    public void addAll(@NonNull Data... datas) {
-        throw new UnsupportedOperationException(MULTI_ITEM_OPERATION_ERROR);
-    }
-    
-    @Override
-    public void add(@NonNull Data data) {
+    public void add(@NonNull Data... datas) {
         throw new UnsupportedOperationException(MULTI_ITEM_OPERATION_ERROR);
     }
 
@@ -93,7 +88,7 @@ public abstract class SingleItemSection<Data, ViewHolder extends RecyclerView.Vi
     }
 
     @Override
-    public int indexOf(@NonNull Data data) {
+    public int firstIndexOf(@NonNull Data data) {
         if (this.data.equals(data)) {
             return 0;
         } else {
@@ -103,7 +98,7 @@ public abstract class SingleItemSection<Data, ViewHolder extends RecyclerView.Vi
 
     @Override
     public int lastIndexOf(@NonNull Data data) {
-        return indexOf(data);
+        return firstIndexOf(data);
     }
 
     @Override

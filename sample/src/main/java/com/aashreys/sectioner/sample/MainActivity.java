@@ -46,12 +46,12 @@ public class MainActivity extends AppCompatActivity {
         SeparatorSection songsSeparatorSection = new SeparatorSection("Top Audiotracks");
 
         SongsSection songsSection = new SongsSection();
-        songsSection.addAll(getResources().getStringArray(R.array.array_songs)); // Adding data
+        songsSection.add(getResources().getStringArray(R.array.array_songs)); // Adding data
 
         SeparatorSection albumsSeparatorSection = new SeparatorSection("Top Records");
 
         AlbumsSection albumsSection = new AlbumsSection();
-        albumsSection.addAll(getResources().getStringArray(R.array.array_albums)); // Adding data
+        albumsSection.add(getResources().getStringArray(R.array.array_albums)); // Adding data
 
         FooterSection footerSection = new FooterSection();
 

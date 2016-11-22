@@ -40,25 +40,14 @@ public abstract class MultiItemSection<Data, ViewHolder extends RecyclerView.Vie
     }
 
     @Override
-    public void addAll(@NonNull Data... datas) {
+    public void add(@NonNull Data... datas) {
         int oldSize;
         synchronized (writeLock) {
             oldSize = dataList.size();
             Collections.addAll(dataList, datas);
             updatePositionMapping();
         }
-        _notifyItemRangeAdded(oldSize, size());
-    }
-
-    @Override
-    public void add(@NonNull Data data) {
-        int itemPosition;
-        synchronized (writeLock) {
-            dataList.add(data);
-            itemPosition = dataList.size() - 1;
-            updatePositionMapping();
-        }
-        _notifyItemAdded(itemPosition);
+        _notifyItemRangeInserted(oldSize, size() - oldSize);
     }
 
     @Override
@@ -125,9 +114,11 @@ public abstract class MultiItemSection<Data, ViewHolder extends RecyclerView.Vie
             newSize = dataList.size();
         }
         if (oldSize > newSize) {
-            _notifyItemRangeRemoved(oldSize, newSize);
+            _notifyItemRangeChanged(0, newSize);
+            _notifyItemRangeRemoved(newSize, oldSize - newSize);
         } else if (newSize > oldSize) {
-            _notifyItemRangeAdded(oldSize, newSize);
+            _notifyItemRangeChanged(0, oldSize);
+            _notifyItemRangeInserted(oldSize, newSize - oldSize);
         } else {
             _notifyItemRangeChanged(0, oldSize);
         }
@@ -146,11 +137,11 @@ public abstract class MultiItemSection<Data, ViewHolder extends RecyclerView.Vie
             this.dataList = new ArrayList<>();
             updatePositionMapping();
         }
-        _notifyItemRangeRemoved(oldSize, size());
+        _notifyItemRangeRemoved(0, oldSize);
     }
 
     @Override
-    public int indexOf(@NonNull Data data) {
+    public int firstIndexOf(@NonNull Data data) {
         return dataList.indexOf(data);
     }
 

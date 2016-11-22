@@ -55,17 +55,10 @@ public abstract class Section<Data, ViewHolder extends RecyclerView.ViewHolder> 
      * Adds data {@link Data}s to the end of this {@link Section} and notifies the adapter.
      *
      * @param datas {@link Data}s to add.
-     * @see MultiItemSection#addAll(Object[])
-     * @see SingleItemSection#addAll(Object[])
+     * @see MultiItemSection#add(Object[])
+     * @see SingleItemSection#add(Object[])
      */
-    public abstract void addAll(@NonNull Data... datas);
-
-    /**
-     * Adds a single {@link Data} to the end of this {@link Section} and notifies the adapter.
-     *
-     * @param data {@link Data} to add.
-     */
-    public abstract void add(@NonNull Data data);
+    public abstract void add(@NonNull Data... datas);
 
     /**
      * Adds a single {@link Data} to a specific position in this {@link Section} and notifies the
@@ -121,7 +114,7 @@ public abstract class Section<Data, ViewHolder extends RecyclerView.ViewHolder> 
      * making it a more efficient notification method.
      * <p/>
      * It is recommended to use this method instead of chaining calls to {@link #clear} and
-     * then {@link #addAll(Object[])}.
+     * then {@link #add(Object[])}.
      *
      * @param datas {@link Data}s to replace the current {@link Data}s with.
      */
@@ -146,7 +139,7 @@ public abstract class Section<Data, ViewHolder extends RecyclerView.ViewHolder> 
      * @param data {@link Data} to find position for.
      * @return First position of the item if it is found in this Section, -1 otherwise.
      */
-    public abstract int indexOf(@NonNull Data data);
+    public abstract int firstIndexOf(@NonNull Data data);
 
     /**
      * Returns the last position of an {@link Data} in this {@link Section}.
@@ -188,9 +181,9 @@ public abstract class Section<Data, ViewHolder extends RecyclerView.ViewHolder> 
             this.isEnabled = isEnabled;
             updatePositionMapping();
             if (isEnabled) {
-                _notifyItemRangeAdded(0, size());
+                _notifyItemRangeInserted(0, size());
             } else {
-                _notifyItemRangeRemoved(size(), 0);
+                _notifyItemRangeRemoved(0, size());
             }
         }
 
@@ -210,14 +203,14 @@ public abstract class Section<Data, ViewHolder extends RecyclerView.ViewHolder> 
      * Helper method to notify the adapter for this {@link Section} of the addition of multiple new
      * {@link Data}s to this {@link Section}.
      *
-     * @param oldSize Size of the {@link Section} before the addition
-     * @param newSize Size of the {@link Section} after the addition
+     * @param sectionStartPosition section position for the first item that was inserted
+     * @param itemCount            number of items that were inserted
      */
-    protected void _notifyItemRangeAdded(int oldSize, int newSize) {
+    protected void _notifyItemRangeInserted(int sectionStartPosition, int itemCount) {
         if (manager != null) {
             manager.getAdapter().notifyItemRangeInserted(
-                    manager.getFirstItemAdapterPositionForSection(this) + oldSize - 1,
-                    newSize - oldSize
+                    manager.getFirstItemAdapterPositionForSection(this) + sectionStartPosition,
+                    itemCount
             );
         }
     }
@@ -226,14 +219,14 @@ public abstract class Section<Data, ViewHolder extends RecyclerView.ViewHolder> 
      * Helper method to notify the adapter for this {@link Section} of the removal of multiple new
      * {@link Data}s to this {@link Section}.
      *
-     * @param oldSize Size of the {@link Section} before the removal
-     * @param newSize Size of the {@link Section} after the removal
+     * @param sectionStartPosition previous section position of the first item that was removed
+     * @param itemCount            number of items that were removed
      */
-    protected void _notifyItemRangeRemoved(int oldSize, int newSize) {
+    protected void _notifyItemRangeRemoved(int sectionStartPosition, int itemCount) {
         if (manager != null) {
             manager.getAdapter().notifyItemRangeRemoved(
-                    manager.getFirstItemAdapterPositionForSection(this) + oldSize - 1,
-                    oldSize - newSize
+                    manager.getFirstItemAdapterPositionForSection(this) + sectionStartPosition,
+                    itemCount
             );
         }
     }
@@ -241,12 +234,15 @@ public abstract class Section<Data, ViewHolder extends RecyclerView.ViewHolder> 
     /**
      * Helper method to notify the adapter for this {@link Section} that a range of {@link Data}s
      * has been changed.
+     *
+     * @param sectionStartPosition section position of the first item that has changed
+     * @param itemCount            number of items that have changed
      */
-    protected void _notifyItemRangeChanged(int startPosition, int itemsChanged) {
+    protected void _notifyItemRangeChanged(int sectionStartPosition, int itemCount) {
         if (manager != null) {
             manager.getAdapter().notifyItemRangeChanged(
-                    manager.getFirstItemAdapterPositionForSection(this) + startPosition,
-                    itemsChanged
+                    manager.getFirstItemAdapterPositionForSection(this) + sectionStartPosition,
+                    itemCount
             );
         }
     }
