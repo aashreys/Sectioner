@@ -18,7 +18,7 @@ public abstract class MultiItemSection<Data, ViewHolder extends RecyclerView.Vie
 
     private final Object writeLock = new Object();
 
-    @NonNull protected List<Data> dataList;
+    @NonNull protected final List<Data> dataList;
 
     /**
      * Creates an empty {@link MultiItemSection}.
@@ -134,7 +134,7 @@ public abstract class MultiItemSection<Data, ViewHolder extends RecyclerView.Vie
         int oldSize;
         synchronized (writeLock) {
             oldSize = dataList.size();
-            this.dataList = new ArrayList<>();
+            dataList.clear();
             updatePositionMapping();
         }
         _notifyItemRangeRemoved(0, oldSize);
