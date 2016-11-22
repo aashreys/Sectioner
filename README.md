@@ -12,3 +12,5 @@ What Sectioner does is generalize the aforementioned mapping so that you can foc
 3. SectionedRecyclerViewAdapter - This is an extension of the base adapter class for interfacing with a SectionManager.
 
 These clases have been extensively JavaDocd. It is recommended that you review the source code to better understand how these classes function.
+
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Sectioner-green.svg?style=true)](https://android-arsenal.com/details/1/4079)
