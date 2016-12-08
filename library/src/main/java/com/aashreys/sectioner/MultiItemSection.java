@@ -43,11 +43,11 @@ public abstract class MultiItemSection<Data, ViewHolder extends RecyclerView.Vie
     public void add(@NonNull Data... datas) {
         int oldSize;
         synchronized (writeLock) {
-            oldSize = dataList.size();
+            oldSize = size();
             Collections.addAll(dataList, datas);
             updatePositionMapping();
         }
-        _notifyItemRangeInserted(oldSize, size() - oldSize);
+        _notifyItemRangeInserted(oldSize, datas.length);
     }
 
     @Override

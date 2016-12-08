@@ -16,15 +16,13 @@ import android.view.ViewGroup;
  */
 public abstract class Section<Data, ViewHolder extends RecyclerView.ViewHolder> {
 
-    @Nullable protected SectionManager manager;
+    @Nullable private SectionManager manager;
 
-    private boolean isEnabled;
+    private boolean isEnabled = true;
 
-    public Section() {
-        this.isEnabled = true;
-    }
+    public Section() {}
 
-    protected void setManager(@Nullable SectionManager manager) {
+    void setManager(@Nullable SectionManager manager) {
         this.manager = manager;
     }
 
@@ -113,8 +111,8 @@ public abstract class Section<Data, ViewHolder extends RecyclerView.ViewHolder> 
      * difference in the size of the list, not the entire removal and re-addition of items, hence
      * making it a more efficient notification method.
      * <p/>
-     * It is recommended to use this method instead of chaining calls to {@link #clear} and
-     * then {@link #add(Object[])}.
+     * It is recommended to use this method instead of calling {@link #clear} and
+     * {@link #add(Object[])} in succession.
      *
      * @param datas {@link Data}s to replace the current {@link Data}s with.
      */
